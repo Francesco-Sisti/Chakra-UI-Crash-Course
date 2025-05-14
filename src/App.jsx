@@ -2,22 +2,50 @@ import {
   createBrowserRouter, 
   createRoutesFromElements, 
   Route, 
-  RouterProvider 
+  RouterProvider,
+  Navigate
 } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { Box, Spinner, Center } from '@chakra-ui/react'
 
-// layouts and pages
+// layouts
 import RootLayout from './layouts/RootLayout'
-import Dashboard, { taskLoader } from './pages/Dashboard'
-import Create from './pages/Create'
-import Profile from './pages/Profile'
 
-// router and routes
+// Lazy loading delle pagine
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Create = lazy(() => import('./pages/Create'))
+const Profile = lazy(() => import('./pages/Profile'))
+
+// Componente di caricamento
+const LoadingFallback = () => (
+  <Center h="300px">
+    <Spinner size="xl" color="purple.500" thickness="4px" />
+  </Center>
+)
+
+// Importazione del loader
+import { taskLoader } from './pages/Dashboard'
+
+// router e routes con gestione errori e reindirizzamenti
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Dashboard />} loader={taskLoader} />
-      <Route path="create" element={<Create />} />
-      <Route path="profile" element={<Profile />} />
+    <Route path="/" element={<RootLayout />} errorElement={<Box p={5}>Errore di navigazione</Box>}>
+      <Route index element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Dashboard />
+        </Suspense>
+      } loader={taskLoader} />
+      <Route path="create" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Create />
+        </Suspense>
+      } />
+      <Route path="profile" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Profile />
+        </Suspense>
+      } />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   )
 )

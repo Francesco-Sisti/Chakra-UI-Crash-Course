@@ -1,20 +1,34 @@
-import { Flex, Box, Heading, Text, Button, Spacer, HStack } from "@chakra-ui/react"
+import { Flex, Box, Heading, Text, Button, Spacer, HStack, Avatar, useColorMode, IconButton, Tooltip } from "@chakra-ui/react"
+import { MoonIcon, SunIcon } from "@chakra-ui/icons"
+import { NavLink } from "react-router-dom"
 
 export default function Navbar() {
-return (
-    <div>
-        <Flex as="nav" p="10px" alignItems="center" gap="10px">
-            <Heading as="h1">Chakra UI Tasks</Heading>
-            <Spacer></Spacer>
+  const { colorMode, toggleColorMode } = useColorMode()
 
-            <HStack spacing="20px">
-                <Box bg="gray.200" p="10px">M</Box>
-                <Text>mail@mail.com</Text>
-                <Button colorScheme="purple">Login</Button>
-            </HStack>
-        </Flex>
-    </div>
-)
+  return (
+    <Box boxShadow="md" py={2}>
+      <Flex as="nav" p="10px" alignItems="center" gap="10px" maxW="1200px" mx="auto">
+        <NavLink to="/">
+          <Heading as="h1" size="lg" color="purple.500">Chakra UI Tasks</Heading>
+        </NavLink>
+        <Spacer />
+
+        <HStack spacing="20px">
+          <Tooltip label={colorMode === 'light' ? 'Modalità scura' : 'Modalità chiara'}>
+            <IconButton
+              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              onClick={toggleColorMode}
+              variant="ghost"
+              aria-label="Cambia tema"
+            />
+          </Tooltip>
+          <Avatar name="John Doe" src="https://bit.ly/tioluwani-kola" size="sm" />
+          <Text fontWeight="medium">mail@mail.com</Text>
+          <Button colorScheme="purple" size="sm">Logout</Button>
+        </HStack>
+      </Flex>
+    </Box>
+  )
 }
 
 
