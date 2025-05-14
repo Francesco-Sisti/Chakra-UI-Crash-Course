@@ -1,6 +1,6 @@
-import { SimpleGrid, Box, Text, Card, CardBody, CardHeader, CardFooter } from "@chakra-ui/react"
+import { SimpleGrid, Box, Text, Card, CardBody, CardHeader, CardFooter, Flex, Avatar, Button, HStack, Divider } from "@chakra-ui/react"
 import { useLoaderData } from "react-router-dom"
-
+import { ViewIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
 
 export default function Dashboard() {
   const tasks = useLoaderData()
@@ -10,11 +10,28 @@ export default function Dashboard() {
       {tasks && tasks.map((task) => (
         <Card key={task.id}>
           <CardHeader>
-            <Text>{task.title}</Text>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Box>
+                <Avatar src={task.img} />
+              </Box>
+              <Box>
+                <Text fontWeight="bold">{task.title}</Text>
+                <Text>by {task.author}</Text>
+              </Box>
+            </Flex>
           </CardHeader>
           <CardBody>
             <Text>{task.description}</Text>
           </CardBody>
+
+          <Divider borderColor="gray.400" />
+
+          <CardFooter>
+            <HStack>
+              <Button leftIcon={<ViewIcon />} variant="ghost">View Task</Button>
+              <Button leftIcon={<EditIcon />} variant="ghost">Edit Task</Button>
+            </HStack>
+          </CardFooter>
           
         </Card>
       ))}
