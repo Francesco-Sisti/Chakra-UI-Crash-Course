@@ -1,6 +1,6 @@
 import { List, ListItem, ListIcon, Box, Heading, Divider, Flex, useColorModeValue, Text, Icon } from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
-import { CalendarIcon, EditIcon, AtSignIcon } from "@chakra-ui/icons"
+import { CalendarIcon, EditIcon, AtSignIcon, SettingsIcon, StarIcon, MoonIcon } from "@chakra-ui/icons"
 
 export default function Sidebar() {
     const activeColor = useColorModeValue("purple.500", "purple.300");
@@ -11,12 +11,15 @@ export default function Sidebar() {
     const navItems = [
         { path: "/", icon: CalendarIcon, label: "Dashboard" },
         { path: "/create", icon: EditIcon, label: "Nuovo Task" },
-        { path: "/profile", icon: AtSignIcon, label: "Profilo" }
+        { path: "/profile", icon: AtSignIcon, label: "Profilo" },
+        { path: "/forms", icon: SettingsIcon, label: "Form" },
+        { path: "/showcase", icon: StarIcon, label: "Showcase" },
+        { path: "/theme", icon: MoonIcon, label: "Temi" }
     ];
 
     return (
         <Box p={5}>
-            <Heading as="h3" size="md" color="purple.500" mb={6} textAlign="center">
+            <Heading as="h3" size="md" color={useColorModeValue("white", "purple.500")} mb={6} textAlign="center">
                 Menu Principale
             </Heading>
             <Divider mb={6} borderColor={borderColor} />
@@ -45,7 +48,7 @@ export default function Sidebar() {
             
             <Divider mt={8} mb={6} borderColor={borderColor} />
             <Text fontSize="xs" textAlign="center" color={textColor} opacity={0.7}>
-                Chakra UI Tasks v1.0
+                Chakra UI Demo v1.0
             </Text>
         </Box>
     )

@@ -15,6 +15,9 @@ import RootLayout from './layouts/RootLayout'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Create = lazy(() => import('./pages/Create'))
 const Profile = lazy(() => import('./pages/Profile'))
+const Forms = lazy(() => import('./pages/Forms'))
+const Showcase = lazy(() => import('./pages/Showcase'))
+const Theme = lazy(() => import('./pages/Theme'))
 
 // Componente di caricamento
 const LoadingFallback = () => (
@@ -43,6 +46,21 @@ const router = createBrowserRouter(
       <Route path="profile" element={
         <Suspense fallback={<LoadingFallback />}>
           <Profile />
+        </Suspense>
+      } />
+      <Route path="forms" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Forms />
+        </Suspense>
+      } />
+      <Route path="showcase" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Showcase />
+        </Suspense>
+      } />
+      <Route path="theme" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Theme />
         </Suspense>
       } />
       <Route path="*" element={<Navigate to="/" replace />} />
