@@ -1,36 +1,28 @@
-import { SimpleGrid, Box, Text } from "@chakra-ui/react"
+import { SimpleGrid, Box, Text, Card, CardBody, CardHeader, CardFooter } from "@chakra-ui/react"
+import { useLoaderData } from "react-router-dom"
+
 
 export default function Dashboard() {
+  const tasks = useLoaderData()
 
   return (
-    <SimpleGrid spacing={10} minChildWidth="250px" p="10px">
-      <Box bg="white" height="200px" border="1px solid">
-        <Text color={{base: "yellow", md: "green", lg: "blue"}}>Total Revenue</Text>
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
-      <Box bg="white" height="200px" border="1px solid">
-      </Box>
+    <SimpleGrid spacing={10} minChildWidth="300px">
+      {tasks && tasks.map((task) => (
+        <Card key={task.id}>
+          <CardHeader>
+            <Text>{task.title}</Text>
+          </CardHeader>
+          <CardBody>
+            <Text>{task.description}</Text>
+          </CardBody>
+          
+        </Card>
+      ))}
     </SimpleGrid>
   )
+}
+export const taskLoader = async () => {
+  const response = await fetch("http://localhost:3000/tasks")
+  const data = await response.json()
+  return data
 }
