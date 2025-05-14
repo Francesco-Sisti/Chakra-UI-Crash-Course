@@ -1,8 +1,23 @@
-import { Flex, Box, Heading, Text, Button, Spacer, HStack, Avatar, useColorMode, IconButton, Tooltip, useColorModeValue } from "@chakra-ui/react"
-import { MoonIcon, SunIcon } from "@chakra-ui/icons"
+import { 
+  Flex, 
+  Box, 
+  Heading, 
+  Text, 
+  Button, 
+  Spacer, 
+  HStack, 
+  Avatar, 
+  useColorMode, 
+  IconButton, 
+  Tooltip, 
+  useColorModeValue,
+  Show,
+  Hide
+} from "@chakra-ui/react"
+import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons"
 import { NavLink } from "react-router-dom"
 
-export default function Navbar() {
+export default function Navbar({ onOpenSidebar }) {
   const { colorMode, toggleColorMode } = useColorMode()
   const bgColor = useColorModeValue("white", "gray.800")
   const borderColor = useColorModeValue("gray.200", "gray.700")
@@ -26,20 +41,32 @@ export default function Navbar() {
         maxW="1200px" 
         mx="auto"
       >
+        {/* Pulsante menu mobile */}
+        <Show below="lg">
+          <IconButton
+            icon={<HamburgerIcon />}
+            variant="ghost"
+            onClick={onOpenSidebar}
+            aria-label="Apri menu"
+            mr={2}
+            size="lg"
+          />
+        </Show>
+
         <NavLink to="/">
           <Heading 
             as="h1" 
-            size="lg" 
+            size={{base: "md", md: "lg"}}
             color="purple.500" 
             _hover={{ color: "purple.600" }}
             transition="color 0.2s"
           >
-            Chakra UI Tasks
+            Chakra UI Demo
           </Heading>
         </NavLink>
         <Spacer />
 
-        <HStack spacing="24px">
+        <HStack spacing={{base: "12px", md: "24px"}}>
           <Tooltip 
             label={colorMode === 'light' ? 'Modalità scura' : 'Modalità chiara'} 
             hasArrow
@@ -52,14 +79,18 @@ export default function Navbar() {
               _hover={{ bg: useColorModeValue("purple.50", "purple.900") }}
             />
           </Tooltip>
-          <Avatar 
-            name="John Doe" 
-            src="https://bit.ly/tioluwani-kola" 
-            size="sm" 
-            border="2px"
-            borderColor="purple.500"
-          />
-          <Text fontWeight="medium">mail@mail.com</Text>
+          
+          <Hide below="md">
+            <Avatar 
+              name="John Doe" 
+              src="https://bit.ly/tioluwani-kola" 
+              size="sm" 
+              border="2px"
+              borderColor="purple.500"
+            />
+            <Text fontWeight="medium">mail@mail.com</Text>
+          </Hide>
+          
           <Button 
             colorScheme="purple" 
             size="sm"

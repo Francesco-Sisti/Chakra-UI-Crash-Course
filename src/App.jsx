@@ -18,6 +18,9 @@ const Profile = lazy(() => import('./pages/Profile'))
 const Forms = lazy(() => import('./pages/Forms'))
 const Showcase = lazy(() => import('./pages/Showcase'))
 const Theme = lazy(() => import('./pages/Theme'))
+const Layout = lazy(() => import('./pages/Layout'))
+const DataDisplay = lazy(() => import('./pages/DataDisplay'))
+const Feedback = lazy(() => import('./pages/Feedback'))
 
 // Componente di caricamento
 const LoadingFallback = () => (
@@ -61,6 +64,21 @@ const router = createBrowserRouter(
       <Route path="theme" element={
         <Suspense fallback={<LoadingFallback />}>
           <Theme />
+        </Suspense>
+      } />
+      <Route path="layout" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Layout />
+        </Suspense>
+      } />
+      <Route path="datadisplay" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <DataDisplay />
+        </Suspense>
+      } />
+      <Route path="feedback" element={
+        <Suspense fallback={<LoadingFallback />}>
+          <Feedback />
         </Suspense>
       } />
       <Route path="*" element={<Navigate to="/" replace />} />
